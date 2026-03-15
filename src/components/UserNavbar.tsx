@@ -17,13 +17,6 @@ export default function UserNavbar() {
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link href="/" className="hover:text-primary transition-colors">Buy</Link>
-          <Link href="/" className="hover:text-primary transition-colors">Rent</Link>
-          <Link href="/" className="hover:text-primary transition-colors">Sell</Link>
-          <Link href="/" className="hover:text-primary transition-colors">About Us</Link>
-        </div>
-
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" className="hidden sm:flex">
             <Search className="w-5 h-5" />
