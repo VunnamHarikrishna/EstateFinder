@@ -24,7 +24,8 @@ import {
   Clock,
   Plus,
   User,
-  Building
+  Building,
+  Edit
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -55,12 +56,13 @@ import {
   SelectItem, 
   SelectTrigger, 
   SelectValue 
-} from "@/components/ui/select";
+} from "@/select";
 import { cn } from '@/lib/utils';
 
 export default function AdminBookingsPage() {
   const [bookings, setBookings] = useState<SiteVisitRequest[]>(MOCK_BOOKINGS);
   const [isNewBookingOpen, setIsNewBookingOpen] = useState(false);
+  const [editingBooking, setEditingBooking] = useState<SiteVisitRequest | null>(null);
   const { toast } = useToast();
 
   const [newBooking, setNewBooking] = useState({
@@ -113,6 +115,17 @@ export default function AdminBookingsPage() {
     });
   };
 
+  const handleUpdateBooking = () => {
+    if (!editingBooking) return;
+    
+    setBookings(bookings.map(b => b.id === editingBooking.id ? editingBooking : b));
+    setEditingBooking(null);
+    toast({ 
+      title: "Booking Updated", 
+      description: "The site visit details have been successfully modified." 
+    });
+  };
+
   return (
     <div className="min-h-screen bg-muted/20 pl-64">
       <AdminNavbar />
@@ -156,7 +169,11 @@ export default function AdminBookingsPage() {
                   <Label>Customer Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input className="pl-10" value={newBooking.userName} onChange={e => setNewBooking({...newBooking, userName: e.target.value})} />
+                    <input 
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      value={newBooking.userName} 
+                      onChange={e => setNewBooking({...newBooking, userName: e.target.value})} 
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -251,6 +268,19 @@ export default function AdminBookingsPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
+                          {/* Edit / Reschedule Action */}
+                          {booking.status !== 'Cancelled' && booking.status !== 'Completed' && (
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="text-primary"
+                              onClick={() => setEditingBooking(booking)}
+                              title="Edit / Postpone"
+                            >
+                              <Edit className="w-5 h-5" />
+                            </Button>
+                          )}
+
                           {booking.status === 'Pending' ? (
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
@@ -341,6 +371,60 @@ export default function AdminBookingsPage() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Edit Booking Dialog */}
+        <Dialog open={!!editingBooking} onOpenChange={(open) => !open && setEditingBooking(null)}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Reschedule / Edit Visit</DialogTitle>
+              <DialogDescription>
+                Modify visit details for {editingBooking?.userName}.
+              </DialogDescription>
+            </DialogHeader>
+            {editingBooking && (
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label>Visit Date</Label>
+                  <Input 
+                    type="date" 
+                    value={editingBooking.visitDate} 
+                    onChange={e => setEditingBooking({...editingBooking, visitDate: e.target.value})} 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Transportation Required?</Label>
+                  <Select 
+                    value={editingBooking.needsTransportation ? 'yes' : 'no'}
+                    onValueChange={(val) => setEditingBooking({...editingBooking, needsTransportation: val === 'yes'})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="yes">Yes, pickup needed</SelectItem>
+                      <SelectItem value="no">No, own transport</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>Customer Contact Info</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Phone className="w-4 h-4" /> {editingBooking.userPhone}
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Mail className="w-4 h-4" /> {editingBooking.userEmail}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setEditingBooking(null)}>Cancel</Button>
+              <Button onClick={handleUpdateBooking}>Save Changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );
