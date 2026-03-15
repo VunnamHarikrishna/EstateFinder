@@ -36,6 +36,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { 
@@ -63,7 +74,10 @@ export default function AdminBookingsPage() {
 
   const updateStatus = (id: string, status: SiteVisitRequest['status']) => {
     setBookings(bookings.map(b => b.id === id ? { ...b, status } : b));
-    toast({ title: "Status Updated", description: `Booking marked as ${status}.` });
+    toast({ 
+      title: "Status Updated", 
+      description: `Booking marked as ${status}.` 
+    });
   };
 
   const handleCreateBooking = () => {
@@ -237,24 +251,79 @@ export default function AdminBookingsPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="text-green-600"
-                            onClick={() => updateStatus(booking.id, 'Confirmed')}
-                            title="Confirm Visit"
-                          >
-                            <CheckCircle className="w-5 h-5" />
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="text-red-600"
-                            onClick={() => updateStatus(booking.id, 'Cancelled')}
-                            title="Cancel Request"
-                          >
-                            <XCircle className="w-5 h-5" />
-                          </Button>
+                          {booking.status === 'Pending' ? (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="text-green-600"
+                                  title="Confirm Visit"
+                                >
+                                  <CheckCircle className="w-5 h-5" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Confirm Site Visit Request?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to confirm the site visit for {booking.userName} on {booking.visitDate}? This will notify the relationship manager.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Go Back</AlertDialogCancel>
+                                  <AlertDialogAction 
+                                    onClick={() => updateStatus(booking.id, 'Confirmed')}
+                                    className="bg-green-600 hover:bg-green-700"
+                                  >
+                                    Confirm Visit
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          ) : booking.status === 'Confirmed' ? (
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="text-blue-600"
+                              onClick={() => updateStatus(booking.id, 'Completed')}
+                              title="Mark as Completed"
+                            >
+                              <CheckCircle className="w-5 h-5" />
+                            </Button>
+                          ) : null}
+
+                          {booking.status !== 'Cancelled' && booking.status !== 'Completed' && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="text-red-600"
+                                  title="Cancel Request"
+                                >
+                                  <XCircle className="w-5 h-5" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Cancel Site Visit?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This will cancel the scheduled visit for {booking.userName}. This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Keep Booking</AlertDialogCancel>
+                                  <AlertDialogAction 
+                                    onClick={() => updateStatus(booking.id, 'Cancelled')}
+                                    className="bg-destructive hover:bg-destructive/90"
+                                  >
+                                    Cancel Visit
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                         </div>
                       </TableCell>
                     </TableRow>
