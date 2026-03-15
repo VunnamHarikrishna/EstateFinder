@@ -63,6 +63,7 @@ export default function AdminPropertiesPage() {
   const [properties, setProperties] = useState<Property[]>(MOCK_PROPERTIES);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     type: 'Apartment',
@@ -73,6 +74,19 @@ export default function AdminPropertiesPage() {
     amenities: [] as string[]
   });
   const { toast } = useToast();
+
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      type: 'Apartment',
+      location: '',
+      price: '',
+      description: '',
+      imageUrl: 'https://picsum.photos/seed/new/800/600',
+      amenities: []
+    });
+    setEditingId(null);
+  };
 
   const handleAIDescription = async () => {
     if (!formData.title || !formData.location) {
@@ -112,39 +126,59 @@ export default function AdminPropertiesPage() {
     }));
   };
 
+  const startEdit = (prop: Property) => {
+    setFormData({
+      title: prop.title,
+      type: prop.type,
+      location: prop.location,
+      price: prop.price.toString(),
+      description: prop.description,
+      imageUrl: prop.images[0] || 'https://picsum.photos/seed/new/800/600',
+      amenities: prop.amenities
+    });
+    setEditingId(prop.id);
+    setIsDialogOpen(true);
+  };
+
   const saveProperty = () => {
     if (!formData.title || !formData.location || !formData.price) {
       toast({ title: "Error", description: "Please fill in all required fields.", variant: "destructive" });
       return;
     }
 
-    const newProperty: Property = {
-      id: `p${Date.now()}`,
-      title: formData.title,
-      type: formData.type as any,
-      location: formData.location,
-      address: formData.location,
-      price: Number(formData.price),
-      squareFootage: 1200, // Default for demo
-      description: formData.description,
-      amenities: formData.amenities,
-      images: [formData.imageUrl],
-      availableUnits: 5,
-      contact: { name: 'Admin', phone: '+91 00000 00000', email: 'admin@estatefinder.com' }
-    };
+    if (editingId) {
+      setProperties(properties.map(p => p.id === editingId ? {
+        ...p,
+        title: formData.title,
+        type: formData.type as any,
+        location: formData.location,
+        price: Number(formData.price),
+        description: formData.description,
+        amenities: formData.amenities,
+        images: [formData.imageUrl, ...p.images.slice(1)]
+      } : p));
+      toast({ title: "Property Updated", description: "Listing details have been successfully updated." });
+    } else {
+      const newProperty: Property = {
+        id: `p${Date.now()}`,
+        title: formData.title,
+        type: formData.type as any,
+        location: formData.location,
+        address: formData.location,
+        price: Number(formData.price),
+        squareFootage: 1200,
+        description: formData.description,
+        amenities: formData.amenities,
+        images: [formData.imageUrl],
+        availableUnits: 5,
+        contact: { name: 'Admin', phone: '+91 00000 00000', email: 'admin@estatefinder.com' }
+      };
+      setProperties([newProperty, ...properties]);
+      toast({ title: "Property Saved", description: "New listing added to inventory." });
+    }
 
-    setProperties([newProperty, ...properties]);
     setIsDialogOpen(false);
-    setFormData({
-      title: '',
-      type: 'Apartment',
-      location: '',
-      price: '',
-      description: '',
-      imageUrl: 'https://picsum.photos/seed/new/800/600',
-      amenities: []
-    });
-    toast({ title: "Property Saved", description: "New listing added to inventory." });
+    resetForm();
   };
 
   const deleteProperty = (id: string) => {
@@ -171,7 +205,10 @@ export default function AdminPropertiesPage() {
             <p className="text-muted-foreground">Manage your Tirupati property listings and descriptions.</p>
           </div>
           
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog open={isDialogOpen} onOpenChange={(open) => {
+            setIsDialogOpen(open);
+            if (!open) resetForm();
+          }}>
             <DialogTrigger asChild>
               <Button className="gap-2 bg-primary hover:bg-primary/90 shadow-lg">
                 <Plus className="w-4 h-4" />
@@ -180,7 +217,7 @@ export default function AdminPropertiesPage() {
             </DialogTrigger>
             <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Add New Property</DialogTitle>
+                <DialogTitle>{editingId ? 'Edit Property' : 'Add New Property'}</DialogTitle>
                 <DialogDescription>
                   Fill in the details below. Use the AI tool to generate high-converting descriptions for the Tirupati market.
                 </DialogDescription>
@@ -290,8 +327,13 @@ export default function AdminPropertiesPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                <Button className="bg-primary hover:bg-primary/90" onClick={saveProperty}>Save Property</Button>
+                <Button variant="outline" onClick={() => {
+                  setIsDialogOpen(false);
+                  resetForm();
+                }}>Cancel</Button>
+                <Button className="bg-primary hover:bg-primary/90" onClick={saveProperty}>
+                  {editingId ? 'Update Property' : 'Save Property'}
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -346,7 +388,7 @@ export default function AdminPropertiesPage() {
                         <Button variant="ghost" size="icon"><MoreHorizontal className="w-4 h-4" /></Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem className="gap-2">
+                        <DropdownMenuItem className="gap-2" onClick={() => startEdit(prop)}>
                           <Edit className="w-4 h-4" /> Edit Details
                         </DropdownMenuItem>
                         <DropdownMenuItem className="gap-2 text-red-600" onClick={() => deleteProperty(prop.id)}>
