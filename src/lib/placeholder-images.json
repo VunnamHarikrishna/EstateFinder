@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "banner-1",
+      "description": "Luxury Apartment Banner",
+      "imageUrl": "https://picsum.photos/seed/re1/1200/400",
+      "imageHint": "luxury apartment"
+    },
+    {
+      "id": "banner-2",
+      "description": "Cozy Suburban House Banner",
+      "imageUrl": "https://picsum.photos/seed/re2/1200/400",
+      "imageHint": "suburban house"
+    },
+    {
+      "id": "banner-3",
+      "description": "Plot Offer Banner",
+      "imageUrl": "https://picsum.photos/seed/re3/1200/400",
+      "imageHint": "residential plot"
+    },
+    {
+      "id": "prop-1",
+      "description": "Modern City Apartment",
+      "imageUrl": "https://picsum.photos/seed/p1/800/600",
+      "imageHint": "modern apartment"
+    },
+    {
+      "id": "prop-2",
+      "description": "Spacious Villa",
+      "imageUrl": "https://picsum.photos/seed/p2/800/600",
+      "imageHint": "spacious villa"
+    },
+    {
+      "id": "prop-3",
+      "description": "Greenfield Plot",
+      "imageUrl": "https://picsum.photos/seed/p3/800/600",
+      "imageHint": "green field"
+    },
+    {
+      "id": "prop-4",
+      "description": "Luxury Condo",
+      "imageUrl": "https://picsum.photos/seed/p4/800/600",
+      "imageHint": "luxury condo"
+    },
+    {
+      "id": "prop-5",
+      "description": "Rural Land",
+      "imageUrl": "https://picsum.photos/seed/p5/800/600",
+      "imageHint": "rural land"
+    },
+    {
+      "id": "prop-6",
+      "description": "Downtown Studio",
+      "imageUrl": "https://picsum.photos/seed/p6/800/600",
+      "imageHint": "downtown studio"
+    }
+  ]
 }
