@@ -39,7 +39,7 @@ export default function AdminDashboard() {
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-headline font-bold">Sales Overview</h1>
-            <p className="text-muted-foreground">Real-time performance metrics for Indian regions.</p>
+            <p className="text-muted-foreground">Real-time performance metrics for Tirupati region.</p>
           </div>
           <div className="bg-white p-2 rounded-xl shadow-sm border flex items-center gap-2">
             <Clock className="w-4 h-4 text-primary" />
@@ -49,10 +49,10 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { label: 'Total Sales', value: '₹12 Cr', icon: TrendingUp, trend: '+12.5%', color: 'text-green-600' },
-            { label: 'Active Listings', value: '42', icon: Building, trend: '+3 new', color: 'text-primary' },
-            { label: 'Site Visits', value: '128', icon: CalendarCheck, trend: '+18%', color: 'text-blue-600' },
-            { label: 'Total Leads', value: '1,240', icon: Users, trend: '+45', color: 'text-purple-600' },
+            { label: 'Total Sales', value: '₹4.5 Cr', icon: TrendingUp, trend: '+8.5%', color: 'text-green-600' },
+            { label: 'Active Listings', value: '18', icon: Building, trend: '+2 new', color: 'text-primary' },
+            { label: 'Site Visits', value: '64', icon: CalendarCheck, trend: '+12%', color: 'text-blue-600' },
+            { label: 'Total Leads', value: '450', icon: Users, trend: '+32', color: 'text-purple-600' },
           ].map((stat, i) => (
             <Card key={i} className="border-none shadow-md overflow-hidden">
               <CardContent className="p-6">
@@ -103,15 +103,15 @@ export default function AdminDashboard() {
 
           <Card className="border-none shadow-md">
             <CardHeader>
-              <CardTitle>Recent Indian Leads</CardTitle>
+              <CardTitle>Recent Tirupati Leads</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {[
-                  { user: 'Rajesh Kumar', action: 'booked Worli visit', time: '2 mins ago' },
-                  { user: 'Sneha Rao', action: 'purchased Plot #42', time: '45 mins ago' },
-                  { user: 'Amit Singh', action: 'requested callback', time: '1 hour ago' },
-                  { user: 'Priya K.', action: 'viewed Heritage Villa', time: '3 hours ago' },
+                  { user: 'Kiran Kumar', action: 'booked Alipiri visit', time: '5 mins ago' },
+                  { user: 'Sravani P.', action: 'purchased Plot #12', time: '1 hour ago' },
+                  { user: 'Naidu Garu', action: 'requested callback', time: '3 hours ago' },
+                  { user: 'Madhav S.', action: 'viewed KT Road Villa', time: '5 hours ago' },
                 ].map((act, i) => (
                   <div key={i} className="flex gap-3">
                     <div className="bg-primary/10 w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-bold text-xs text-primary">

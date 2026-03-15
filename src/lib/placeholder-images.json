@@ -2,56 +2,56 @@
   "placeholderImages": [
     {
       "id": "banner-1",
-      "description": "Luxury Indian Apartment Banner",
-      "imageUrl": "https://picsum.photos/seed/in1/1200/400",
+      "description": "Luxury Tirupati Apartment Banner",
+      "imageUrl": "https://picsum.photos/seed/tp1/1200/400",
       "imageHint": "indian apartment"
     },
     {
       "id": "banner-2",
-      "description": "Indian Suburban Villa Banner",
-      "imageUrl": "https://picsum.photos/seed/in2/1200/400",
+      "description": "Tirupati Suburban Villa Banner",
+      "imageUrl": "https://picsum.photos/seed/tp2/1200/400",
       "imageHint": "indian house"
     },
     {
       "id": "banner-3",
-      "description": "Indian Green Plot Banner",
-      "imageUrl": "https://picsum.photos/seed/in3/1200/400",
+      "description": "Tirupati Green Plot Banner",
+      "imageUrl": "https://picsum.photos/seed/tp3/1200/400",
       "imageHint": "indian landscape"
     },
     {
       "id": "prop-1",
-      "description": "Modern Mumbai Apartment",
-      "imageUrl": "https://picsum.photos/seed/pi1/800/600",
+      "description": "Modern Tirupati Apartment",
+      "imageUrl": "https://picsum.photos/seed/tpi1/800/600",
       "imageHint": "mumbai skyscraper"
     },
     {
       "id": "prop-2",
-      "description": "Spacious Indian Villa",
-      "imageUrl": "https://picsum.photos/seed/pi2/800/600",
+      "description": "Spacious Tirupati Villa",
+      "imageUrl": "https://picsum.photos/seed/tpi2/800/600",
       "imageHint": "indian villa"
     },
     {
       "id": "prop-3",
-      "description": "Greenfield Plot India",
-      "imageUrl": "https://picsum.photos/seed/pi3/800/600",
+      "description": "Greenfield Plot Tirupati",
+      "imageUrl": "https://picsum.photos/seed/tpi3/800/600",
       "imageHint": "indian farm"
     },
     {
       "id": "prop-4",
-      "description": "Luxury Condo Bangalore",
-      "imageUrl": "https://picsum.photos/seed/pi4/800/600",
+      "description": "Luxury Condo Tirupati",
+      "imageUrl": "https://picsum.photos/seed/tpi4/800/600",
       "imageHint": "luxury apartment"
     },
     {
       "id": "prop-5",
-      "description": "Rural Indian Land",
-      "imageUrl": "https://picsum.photos/seed/pi5/800/600",
+      "description": "Rural Tirupati Land",
+      "imageUrl": "https://picsum.photos/seed/tpi5/800/600",
       "imageHint": "rural india"
     },
     {
       "id": "prop-6",
-      "description": "Indian Urban Studio",
-      "imageUrl": "https://picsum.photos/seed/pi6/800/600",
+      "description": "Tirupati Urban Studio",
+      "imageUrl": "https://picsum.photos/seed/tpi6/800/600",
       "imageHint": "urban india"
     }
   ]
