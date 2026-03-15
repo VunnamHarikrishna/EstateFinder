@@ -9,6 +9,12 @@ import { Badge } from '@/components/ui/badge';
 import { Property } from '@/lib/mock-data';
 
 export default function PropertyCard({ property }: { property: Property }) {
+  const formattedPrice = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(property.price);
+
   return (
     <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-none bg-white">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -22,7 +28,7 @@ export default function PropertyCard({ property }: { property: Property }) {
           {property.type}
         </Badge>
         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-sm font-bold text-primary">
-          ${property.price.toLocaleString()}
+          {formattedPrice}
         </div>
       </div>
       <CardContent className="p-5">
@@ -36,7 +42,7 @@ export default function PropertyCard({ property }: { property: Property }) {
           {property.bedrooms && (
             <div className="flex flex-col items-center gap-1">
               <BedDouble className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium">{property.bedrooms} Beds</span>
+              <span className="text-xs font-medium">{property.bedrooms} BHK</span>
             </div>
           )}
           {property.bathrooms && (

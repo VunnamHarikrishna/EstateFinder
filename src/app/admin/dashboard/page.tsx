@@ -6,7 +6,6 @@ import {
   Users, 
   Building, 
   CalendarCheck, 
-  DollarSign,
   TrendingUp,
   Clock,
   ArrowUpRight
@@ -20,6 +19,7 @@ import {
   Tooltip,
   Cell
 } from 'recharts';
+import { Button } from '@/components/ui/button';
 
 const data = [
   { name: 'Jan', value: 400 },
@@ -38,8 +38,8 @@ export default function AdminDashboard() {
       <main className="p-8 space-y-8">
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-headline font-bold">Dashboard Overview</h1>
-            <p className="text-muted-foreground">Welcome back! Here's what's happening today.</p>
+            <h1 className="text-3xl font-headline font-bold">Sales Overview</h1>
+            <p className="text-muted-foreground">Real-time performance metrics for Indian regions.</p>
           </div>
           <div className="bg-white p-2 rounded-xl shadow-sm border flex items-center gap-2">
             <Clock className="w-4 h-4 text-primary" />
@@ -49,10 +49,10 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { label: 'Total Sales', value: '$1.2M', icon: DollarSign, trend: '+12.5%', color: 'text-green-600' },
+            { label: 'Total Sales', value: '₹12 Cr', icon: TrendingUp, trend: '+12.5%', color: 'text-green-600' },
             { label: 'Active Listings', value: '42', icon: Building, trend: '+3 new', color: 'text-primary' },
             { label: 'Site Visits', value: '128', icon: CalendarCheck, trend: '+18%', color: 'text-blue-600' },
-            { label: 'Total Users', value: '1,240', icon: Users, trend: '+45', color: 'text-purple-600' },
+            { label: 'Total Leads', value: '1,240', icon: Users, trend: '+45', color: 'text-purple-600' },
           ].map((stat, i) => (
             <Card key={i} className="border-none shadow-md overflow-hidden">
               <CardContent className="p-6">
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <Card className="lg:col-span-2 border-none shadow-md">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Sales Growth</CardTitle>
+              <CardTitle>Revenue Growth (in Lakhs)</CardTitle>
               <Button variant="ghost" size="sm" className="gap-2">
                 View Report <ArrowUpRight className="w-4 h-4" />
               </Button>
@@ -103,14 +103,14 @@ export default function AdminDashboard() {
 
           <Card className="border-none shadow-md">
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
+              <CardTitle>Recent Indian Leads</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {[
-                  { user: 'John Doe', action: 'booked a site visit', time: '2 mins ago' },
-                  { user: 'Sarah Smith', action: 'purchased Plot #42', time: '45 mins ago' },
-                  { user: 'Mike Ross', action: 'requested callback', time: '1 hour ago' },
+                  { user: 'Rajesh Kumar', action: 'booked Worli visit', time: '2 mins ago' },
+                  { user: 'Sneha Rao', action: 'purchased Plot #42', time: '45 mins ago' },
+                  { user: 'Amit Singh', action: 'requested callback', time: '1 hour ago' },
                   { user: 'Priya K.', action: 'viewed Heritage Villa', time: '3 hours ago' },
                 ].map((act, i) => (
                   <div key={i} className="flex gap-3">
@@ -126,7 +126,7 @@ export default function AdminDashboard() {
                   </div>
                 ))}
               </div>
-              <Button variant="outline" className="w-full mt-6">View All Activity</Button>
+              <Button variant="outline" className="w-full mt-6">View All Leads</Button>
             </CardContent>
           </Card>
         </div>
@@ -136,6 +136,7 @@ export default function AdminDashboard() {
 }
 
 function Badge({ children, className }: { children: React.ReactNode, className?: string }) {
+  const { cn } = require('@/lib/utils');
   return (
     <div className={cn("px-2 py-0.5 rounded-full text-xs font-bold flex items-center", className)}>
       {children}

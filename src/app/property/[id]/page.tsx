@@ -58,11 +58,17 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     toast({
-      title: "Success!",
-      description: "Your site visit request has been submitted. We'll contact you soon.",
+      title: "Request Submitted",
+      description: "Our relationship manager will contact you shortly to confirm the site visit.",
     });
     setIsSubmitting(false);
   };
+
+  const formattedPrice = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(property.price);
 
   return (
     <div className="min-h-screen pb-20">
@@ -75,7 +81,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           onClick={() => router.back()}
         >
           <ChevronLeft className="w-4 h-4" />
-          Back to listings
+          Back to search
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -108,8 +114,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                   </div>
                 </div>
                 <div className="bg-background p-4 rounded-xl border-l-4 border-primary">
-                  <p className="text-muted-foreground text-sm uppercase font-bold">Starting Price</p>
-                  <p className="text-3xl font-headline font-bold text-primary">${property.price.toLocaleString()}</p>
+                  <p className="text-muted-foreground text-sm uppercase font-bold">List Price</p>
+                  <p className="text-3xl font-headline font-bold text-primary">{formattedPrice}</p>
                 </div>
               </div>
 
@@ -118,8 +124,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                   <div className="flex items-center gap-3">
                     <div className="bg-white p-2 rounded-lg"><BedDouble className="w-6 h-6 text-primary" /></div>
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase">Bedrooms</p>
-                      <p className="font-bold">{property.bedrooms}</p>
+                      <p className="text-xs text-muted-foreground uppercase">Configuration</p>
+                      <p className="font-bold">{property.bedrooms} BHK</p>
                     </div>
                   </div>
                 )}
@@ -135,28 +141,28 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 <div className="flex items-center gap-3">
                   <div className="bg-white p-2 rounded-lg"><Square className="w-6 h-6 text-primary" /></div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase">Area</p>
+                    <p className="text-xs text-muted-foreground uppercase">Super Area</p>
                     <p className="font-bold">{property.squareFootage} sqft</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="bg-white p-2 rounded-lg"><CheckCircle2 className="w-6 h-6 text-primary" /></div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase">Status</p>
-                    <p className="font-bold">{property.availableUnits > 0 ? 'Available' : 'Sold Out'}</p>
+                    <p className="text-xs text-muted-foreground uppercase">Availability</p>
+                    <p className="font-bold">{property.availableUnits > 0 ? 'Ready to Move' : 'Sold Out'}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <h2 className="text-2xl font-headline font-bold">Description</h2>
+                <h2 className="text-2xl font-headline font-bold">Property Overview</h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
                   {property.description}
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h2 className="text-2xl font-headline font-bold">Amenities</h2>
+                <h2 className="text-2xl font-headline font-bold">Key Amenities</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {property.amenities.map(amenity => (
                     <div key={amenity} className="flex items-center gap-2">
@@ -177,7 +183,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
               <CardContent className="p-6">
                 <h3 className="text-xl font-headline font-bold mb-6 flex items-center gap-2">
                   <CalendarIcon className="w-5 h-5 text-primary" />
-                  Book Site Visit
+                  Request a Site Visit
                 </h3>
                 
                 <form className="space-y-4" onSubmit={handleBooking}>
@@ -185,7 +191,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                     <Label htmlFor="name">Full Name</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input id="name" required placeholder="John Doe" className="pl-10" />
+                      <Input id="name" required placeholder="Enter your name" className="pl-10" />
                     </div>
                   </div>
                   
@@ -193,7 +199,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                     <Label htmlFor="mobile">Mobile Number</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input id="mobile" type="tel" required placeholder="+1 234 567 8900" className="pl-10" />
+                      <Input id="mobile" type="tel" required placeholder="+91" className="pl-10" />
                     </div>
                   </div>
 
@@ -201,12 +207,12 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                     <Label htmlFor="email">Email Address</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input id="email" type="email" required placeholder="john@example.com" className="pl-10" />
+                      <Input id="email" type="email" required placeholder="email@example.com" className="pl-10" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Visit Date</Label>
+                    <Label>Preferred Visit Date</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -217,7 +223,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? format(date, "PPP") : <span>Pick a date</span>}
+                          {date ? format(date, "PPP") : <span>Select a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
@@ -238,28 +244,28 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
                     >
                       <Car className="w-4 h-4 text-primary" />
-                      Do you need transportation?
+                      Need pickup from nearest station?
                     </Label>
                   </div>
 
                   <Button className="w-full bg-accent hover:bg-accent/90 text-white h-12 text-lg font-bold" disabled={isSubmitting}>
-                    {isSubmitting ? "Processing..." : "Schedule Visit"}
+                    {isSubmitting ? "Processing..." : "Confirm Schedule"}
                   </Button>
                   
                   <p className="text-center text-xs text-muted-foreground mt-4">
-                    By clicking "Schedule Visit" you agree to our Terms of Service and Privacy Policy.
+                    Our team typically responds within 30 minutes during business hours.
                   </p>
                 </form>
 
                 <div className="mt-8 pt-8 border-t space-y-4">
-                  <h4 className="font-bold text-sm uppercase text-muted-foreground">Property Consultant</h4>
+                  <h4 className="font-bold text-sm uppercase text-muted-foreground">Assigned Relationship Manager</h4>
                   <div className="flex items-center gap-4">
                     <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center font-bold text-primary">
                       {property.contact.name.charAt(0)}
                     </div>
                     <div>
                       <p className="font-bold">{property.contact.name}</p>
-                      <p className="text-sm text-muted-foreground">Premium Consultant</p>
+                      <p className="text-sm text-muted-foreground">Certified Consultant</p>
                     </div>
                   </div>
                   <div className="space-y-2">

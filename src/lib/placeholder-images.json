@@ -2,57 +2,57 @@
   "placeholderImages": [
     {
       "id": "banner-1",
-      "description": "Luxury Apartment Banner",
-      "imageUrl": "https://picsum.photos/seed/re1/1200/400",
-      "imageHint": "luxury apartment"
+      "description": "Luxury Indian Apartment Banner",
+      "imageUrl": "https://picsum.photos/seed/in1/1200/400",
+      "imageHint": "indian apartment"
     },
     {
       "id": "banner-2",
-      "description": "Cozy Suburban House Banner",
-      "imageUrl": "https://picsum.photos/seed/re2/1200/400",
-      "imageHint": "suburban house"
+      "description": "Indian Suburban Villa Banner",
+      "imageUrl": "https://picsum.photos/seed/in2/1200/400",
+      "imageHint": "indian house"
     },
     {
       "id": "banner-3",
-      "description": "Plot Offer Banner",
-      "imageUrl": "https://picsum.photos/seed/re3/1200/400",
-      "imageHint": "residential plot"
+      "description": "Indian Green Plot Banner",
+      "imageUrl": "https://picsum.photos/seed/in3/1200/400",
+      "imageHint": "indian landscape"
     },
     {
       "id": "prop-1",
-      "description": "Modern City Apartment",
-      "imageUrl": "https://picsum.photos/seed/p1/800/600",
-      "imageHint": "modern apartment"
+      "description": "Modern Mumbai Apartment",
+      "imageUrl": "https://picsum.photos/seed/pi1/800/600",
+      "imageHint": "mumbai skyscraper"
     },
     {
       "id": "prop-2",
-      "description": "Spacious Villa",
-      "imageUrl": "https://picsum.photos/seed/p2/800/600",
-      "imageHint": "spacious villa"
+      "description": "Spacious Indian Villa",
+      "imageUrl": "https://picsum.photos/seed/pi2/800/600",
+      "imageHint": "indian villa"
     },
     {
       "id": "prop-3",
-      "description": "Greenfield Plot",
-      "imageUrl": "https://picsum.photos/seed/p3/800/600",
-      "imageHint": "green field"
+      "description": "Greenfield Plot India",
+      "imageUrl": "https://picsum.photos/seed/pi3/800/600",
+      "imageHint": "indian farm"
     },
     {
       "id": "prop-4",
-      "description": "Luxury Condo",
-      "imageUrl": "https://picsum.photos/seed/p4/800/600",
-      "imageHint": "luxury condo"
+      "description": "Luxury Condo Bangalore",
+      "imageUrl": "https://picsum.photos/seed/pi4/800/600",
+      "imageHint": "luxury apartment"
     },
     {
       "id": "prop-5",
-      "description": "Rural Land",
-      "imageUrl": "https://picsum.photos/seed/p5/800/600",
-      "imageHint": "rural land"
+      "description": "Rural Indian Land",
+      "imageUrl": "https://picsum.photos/seed/pi5/800/600",
+      "imageHint": "rural india"
     },
     {
       "id": "prop-6",
-      "description": "Downtown Studio",
-      "imageUrl": "https://picsum.photos/seed/p6/800/600",
-      "imageHint": "downtown studio"
+      "description": "Indian Urban Studio",
+      "imageUrl": "https://picsum.photos/seed/pi6/800/600",
+      "imageHint": "urban india"
     }
   ]
 }

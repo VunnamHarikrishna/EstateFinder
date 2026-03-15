@@ -26,63 +26,63 @@ export interface Property {
 export const MOCK_PROPERTIES: Property[] = [
   {
     id: '1',
-    title: 'Skyline Luxury Apartment',
+    title: 'Skyline Luxury Residency',
     type: 'Apartment',
-    location: 'City Center',
-    address: '123 Metropolitan Ave, Downtown',
-    price: 450000,
+    location: 'Mumbai',
+    address: 'Worli Sea Face, Mumbai, Maharashtra',
+    price: 45000000,
     bedrooms: 3,
-    bathrooms: 2,
-    squareFootage: 1200,
-    amenities: ['Pool', 'Gym', 'Parking', '24/7 Security'],
-    description: 'A stunning luxury apartment in the heart of the city with panoramic views.',
+    bathrooms: 3,
+    squareFootage: 1800,
+    amenities: ['Infinity Pool', 'Gym', 'Parking', '24/7 Security', 'Clubhouse'],
+    description: 'A stunning luxury apartment in the heart of Mumbai with breathtaking views of the Arabian Sea.',
     images: [PlaceHolderImages[3].imageUrl, PlaceHolderImages[4].imageUrl],
     availableUnits: 5,
-    contact: { name: 'Pavan Kumar', phone: '+1 234 567 8901', email: 'sales@pavanestate.com' }
+    contact: { name: 'Pavan Kumar', phone: '+91 98765 43210', email: 'sales@pavanestate.com' }
   },
   {
     id: '2',
-    title: 'Serene Meadow Plot',
+    title: 'Green Valley Premium Plot',
     type: 'Plot',
-    location: 'Suburban',
-    address: 'Plot 45, Green Meadows Township',
-    price: 150000,
+    location: 'Bangalore',
+    address: 'Devanahalli, near International Airport, Bangalore',
+    price: 8500000,
     squareFootage: 2400,
-    amenities: ['Water Connection', 'Electricity', 'Gated Community'],
-    description: 'Build your dream home on this perfectly located residential plot.',
+    amenities: ['Water Connection', 'Underground Electricity', 'Gated Community', 'Jogging Track'],
+    description: 'Invest in your future with this premium residential plot in one of Bangalore fastest growing corridors.',
     images: [PlaceHolderImages[5].imageUrl, PlaceHolderImages[6].imageUrl],
     availableUnits: 12,
-    contact: { name: 'Anita Rao', phone: '+1 234 567 8902', email: 'anita@pavanestate.com' }
+    contact: { name: 'Anita Rao', phone: '+91 98765 43211', email: 'anita@pavanestate.com' }
   },
   {
     id: '3',
-    title: 'Heritage Villa',
+    title: 'Royal Heritage Villa',
     type: 'House',
-    location: 'Old Town',
-    address: '88 Cobblestone Rd',
-    price: 750000,
+    location: 'Jaipur',
+    address: 'Vaishali Nagar, Jaipur, Rajasthan',
+    price: 25000000,
     bedrooms: 4,
-    bathrooms: 3,
-    squareFootage: 3200,
-    amenities: ['Garden', 'Fireplace', 'Library', 'Garage'],
-    description: 'A classic heritage villa with modern upgrades and a sprawling garden.',
+    bathrooms: 4,
+    squareFootage: 3500,
+    amenities: ['Private Garden', 'Courtyard', 'Solar Heating', 'Staff Quarters'],
+    description: 'A classic heritage-style villa blending traditional Rajasthani architecture with modern luxury.',
     images: [PlaceHolderImages[4].imageUrl, PlaceHolderImages[7].imageUrl],
     availableUnits: 1,
-    contact: { name: 'Pavan Kumar', phone: '+1 234 567 8901', email: 'sales@pavanestate.com' }
+    contact: { name: 'Pavan Kumar', phone: '+91 98765 43210', email: 'sales@pavanestate.com' }
   },
   {
     id: '4',
-    title: 'Prime Agricultural Land',
+    title: 'Prime Agricultural Farmhouse Land',
     type: 'Land',
-    location: 'Rural',
-    address: 'Sector 12, Outer Ring Road',
-    price: 300000,
-    squareFootage: 43560,
-    amenities: ['Fencing', 'Irrigation System'],
-    description: 'Expansive land suitable for agriculture or long-term investment.',
+    location: 'Delhi NCR',
+    address: 'Sector 150, Noida-Greater Noida Expressway',
+    price: 55000000,
+    squareFootage: 10890,
+    amenities: ['Fencing', 'Borewell', 'Fruit Trees'],
+    description: 'Expansive land parcel ideal for building a weekend farmhouse or long-term land bank investment.',
     images: [PlaceHolderImages[7].imageUrl, PlaceHolderImages[8].imageUrl],
     availableUnits: 2,
-    contact: { name: 'Vijay Singh', phone: '+1 234 567 8903', email: 'vijay@pavanestate.com' }
+    contact: { name: 'Vijay Singh', phone: '+91 98765 43212', email: 'vijay@pavanestate.com' }
   }
 ];
 
@@ -103,13 +103,13 @@ export const MOCK_BOOKINGS: SiteVisitRequest[] = [
   {
     id: 'b1',
     propertyId: '1',
-    propertyName: 'Skyline Luxury Apartment',
+    propertyName: 'Skyline Luxury Residency',
     userName: 'John Doe',
-    userPhone: '555-0101',
-    userEmail: 'john@example.com',
-    visitDate: '2024-05-20',
+    userPhone: '9988776655',
+    userEmail: 'john@example.in',
+    visitDate: '2024-10-20',
     needsTransportation: true,
     status: 'Pending',
-    createdAt: '2024-05-15T10:00:00Z'
+    createdAt: '2024-10-15T10:00:00Z'
   }
 ];
