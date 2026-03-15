@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -20,7 +21,9 @@ import {
   Sparkles, 
   Search,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Image as ImageIcon,
+  Tag
 } from 'lucide-react';
 import {
   Dialog,
@@ -42,16 +45,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import { Checkbox } from '@/components/ui/checkbox';
+
+const COMMON_AMENITIES = [
+  "Tirumala View",
+  "Power Backup",
+  "Lift",
+  "24/7 Security",
+  "Car Parking",
+  "Gym",
+  "Club House",
+  "Pooja Room",
+  "Vastu Compliant"
+];
 
 export default function AdminPropertiesPage() {
   const [properties, setProperties] = useState<Property[]>(MOCK_PROPERTIES);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     type: 'Apartment',
     location: '',
     price: '',
-    description: ''
+    description: '',
+    imageUrl: 'https://picsum.photos/seed/new/800/600',
+    amenities: [] as string[]
   });
   const { toast } = useToast();
 
@@ -72,7 +91,7 @@ export default function AdminPropertiesPage() {
         location: formData.location,
         address: formData.location, 
         price: Number(formData.price) || 0,
-        amenities: ['Tirumala View', 'Modern Kitchen', 'Spacious Balcony'],
+        amenities: formData.amenities.length > 0 ? formData.amenities : ['Modern Amenities', 'Prime Location'],
         uniqueSellingPoints: ['Prime location in Tirupati', 'Excellent ROI'],
       });
       setFormData(prev => ({ ...prev, description: result.description }));
@@ -82,6 +101,50 @@ export default function AdminPropertiesPage() {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const toggleAmenity = (amenity: string) => {
+    setFormData(prev => ({
+      ...prev,
+      amenities: prev.amenities.includes(amenity)
+        ? prev.amenities.filter(a => a !== amenity)
+        : [...prev.amenities, amenity]
+    }));
+  };
+
+  const saveProperty = () => {
+    if (!formData.title || !formData.location || !formData.price) {
+      toast({ title: "Error", description: "Please fill in all required fields.", variant: "destructive" });
+      return;
+    }
+
+    const newProperty: Property = {
+      id: `p${Date.now()}`,
+      title: formData.title,
+      type: formData.type as any,
+      location: formData.location,
+      address: formData.location,
+      price: Number(formData.price),
+      squareFootage: 1200, // Default for demo
+      description: formData.description,
+      amenities: formData.amenities,
+      images: [formData.imageUrl],
+      availableUnits: 5,
+      contact: { name: 'Admin', phone: '+91 00000 00000', email: 'admin@estatefinder.com' }
+    };
+
+    setProperties([newProperty, ...properties]);
+    setIsDialogOpen(false);
+    setFormData({
+      title: '',
+      type: 'Apartment',
+      location: '',
+      price: '',
+      description: '',
+      imageUrl: 'https://picsum.photos/seed/new/800/600',
+      amenities: []
+    });
+    toast({ title: "Property Saved", description: "New listing added to inventory." });
   };
 
   const deleteProperty = (id: string) => {
@@ -108,21 +171,21 @@ export default function AdminPropertiesPage() {
             <p className="text-muted-foreground">Manage your Tirupati property listings and descriptions.</p>
           </div>
           
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="gap-2 bg-primary hover:bg-primary/90 shadow-lg">
                 <Plus className="w-4 h-4" />
                 Add New Property
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add New Property</DialogTitle>
                 <DialogDescription>
                   Fill in the details below. Use the AI tool to generate high-converting descriptions for the Tirupati market.
                 </DialogDescription>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
+              <div className="grid gap-6 py-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="title">Property Title</Label>
@@ -139,15 +202,16 @@ export default function AdminPropertiesPage() {
                       id="type" 
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       value={formData.type}
-                      onChange={e => setFormData({...formData, type: e.target.value as any})}
+                      onChange={e => setFormData({...formData, type: e.target.value})}
                     >
-                      <option>Apartment</option>
-                      <option>House</option>
-                      <option>Plot</option>
-                      <option>Land</option>
+                      <option value="Apartment">Apartment</option>
+                      <option value="House">House</option>
+                      <option value="Plot">Plot</option>
+                      <option value="Land">Land</option>
                     </select>
                   </div>
                 </div>
+                
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="location">Location / Area</Label>
@@ -169,6 +233,39 @@ export default function AdminPropertiesPage() {
                     />
                   </div>
                 </div>
+
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4" /> Property Image URL
+                  </Label>
+                  <Input 
+                    placeholder="https://images.unsplash.com/..." 
+                    value={formData.imageUrl}
+                    onChange={e => setFormData({...formData, imageUrl: e.target.value})}
+                  />
+                  <p className="text-[10px] text-muted-foreground italic">Provide a direct link to the property image.</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Tag className="w-4 h-4" /> Key Amenities
+                  </Label>
+                  <div className="grid grid-cols-3 gap-3 border p-4 rounded-lg bg-muted/20">
+                    {COMMON_AMENITIES.map(amenity => (
+                      <div key={amenity} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`amenity-${amenity}`} 
+                          checked={formData.amenities.includes(amenity)}
+                          onCheckedChange={() => toggleAmenity(amenity)}
+                        />
+                        <Label htmlFor={`amenity-${amenity}`} className="text-xs font-normal cursor-pointer">
+                          {amenity}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="space-y-2 relative">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="description">Description</Label>
@@ -186,15 +283,15 @@ export default function AdminPropertiesPage() {
                   <Textarea 
                     id="description" 
                     placeholder="Describe the property..." 
-                    className="min-h-[150px]"
+                    className="min-h-[120px]"
                     value={formData.description}
                     onChange={e => setFormData({...formData, description: e.target.value})}
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline">Cancel</Button>
-                <Button className="bg-primary hover:bg-primary/90">Save Property</Button>
+                <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+                <Button className="bg-primary hover:bg-primary/90" onClick={saveProperty}>Save Property</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
