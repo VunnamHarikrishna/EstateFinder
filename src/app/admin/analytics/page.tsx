@@ -18,12 +18,12 @@ import {
 import { ArrowUpRight, ArrowDownRight, TrendingUp } from 'lucide-react';
 
 const salesData = [
-  { month: 'Jan', revenue: 150000, target: 120000 },
-  { month: 'Feb', revenue: 180000, target: 120000 },
-  { month: 'Mar', revenue: 220000, target: 150000 },
-  { month: 'Apr', revenue: 210000, target: 150000 },
-  { month: 'May', revenue: 280000, target: 200000 },
-  { month: 'Jun', revenue: 350000, target: 200000 },
+  { month: 'Jan', revenue: 1500000, target: 1200000 },
+  { month: 'Feb', revenue: 1800000, target: 1200000 },
+  { month: 'Mar', revenue: 2200000, target: 1500000 },
+  { month: 'Apr', revenue: 2100000, target: 1500000 },
+  { month: 'May', revenue: 2800000, target: 2000000 },
+  { month: 'Jun', revenue: 3500000, target: 2000000 },
 ];
 
 const trafficData = [
@@ -44,7 +44,7 @@ export default function AdminAnalyticsPage() {
       <main className="p-8 space-y-8">
         <header>
           <h1 className="text-3xl font-headline font-bold">Performance Analytics</h1>
-          <p className="text-muted-foreground">Deep dive into sales figures and user engagement.</p>
+          <p className="text-muted-foreground">Deep dive into sales figures and user engagement in Tirupati.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -69,8 +69,8 @@ export default function AdminAnalyticsPage() {
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--muted))" />
                     <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                    <YAxis axisLine={false} tickLine={false} tickFormatter={(v) => `$${v/1000}k`} />
-                    <Tooltip />
+                    <YAxis axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v/100000}L`} />
+                    <Tooltip formatter={(value: number) => `₹${(value/100000).toFixed(1)} Lakhs`} />
                     <Area 
                       type="monotone" 
                       dataKey="revenue" 
@@ -113,7 +113,7 @@ export default function AdminAnalyticsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { label: 'Conversion Rate', value: '3.2%', sub: '+0.5% from last month' },
-            { label: 'Avg. Property Price', value: '$240k', sub: 'Flat trend' },
+            { label: 'Avg. Property Price', value: '₹85L', sub: 'Flat trend' },
             { label: 'User Retention', value: '78%', sub: '+5% improvement' },
           ].map((item, i) => (
             <Card key={i} className="border-none shadow-sm bg-white">

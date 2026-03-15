@@ -46,7 +46,6 @@ import {
 export default function AdminPropertiesPage() {
   const [properties, setProperties] = useState<Property[]>(MOCK_PROPERTIES);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [newDesc, setNewDesc] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     type: 'Apartment',
@@ -71,13 +70,13 @@ export default function AdminPropertiesPage() {
       const result = await generatePropertyDescription({
         propertyType: formData.type,
         location: formData.location,
-        address: formData.location, // simplified
+        address: formData.location, 
         price: Number(formData.price) || 0,
-        amenities: ['Modern Kitchen', 'Spacious Balcony', 'High Ceilings'],
-        uniqueSellingPoints: ['Prime location', 'Excellent ROI'],
+        amenities: ['Tirumala View', 'Modern Kitchen', 'Spacious Balcony'],
+        uniqueSellingPoints: ['Prime location in Tirupati', 'Excellent ROI'],
       });
       setFormData(prev => ({ ...prev, description: result.description }));
-      toast({ title: "Success!", description: "AI generated a description for you." });
+      toast({ title: "Success!", description: "AI generated a localized description for you." });
     } catch (error) {
       toast({ title: "Error", description: "Failed to generate AI description.", variant: "destructive" });
     } finally {
@@ -90,6 +89,14 @@ export default function AdminPropertiesPage() {
     toast({ title: "Deleted", description: "Property removed successfully." });
   };
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
   return (
     <div className="min-h-screen bg-muted/20 pl-64">
       <AdminNavbar />
@@ -98,7 +105,7 @@ export default function AdminPropertiesPage() {
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-headline font-bold">Property Inventory</h1>
-            <p className="text-muted-foreground">Manage your property listings and descriptions.</p>
+            <p className="text-muted-foreground">Manage your Tirupati property listings and descriptions.</p>
           </div>
           
           <Dialog>
@@ -112,7 +119,7 @@ export default function AdminPropertiesPage() {
               <DialogHeader>
                 <DialogTitle>Add New Property</DialogTitle>
                 <DialogDescription>
-                  Fill in the details below. Use the AI tool to generate high-converting descriptions.
+                  Fill in the details below. Use the AI tool to generate high-converting descriptions for the Tirupati market.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
@@ -132,7 +139,7 @@ export default function AdminPropertiesPage() {
                       id="type" 
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       value={formData.type}
-                      onChange={e => setFormData({...formData, type: e.target.value})}
+                      onChange={e => setFormData({...formData, type: e.target.value as any})}
                     >
                       <option>Apartment</option>
                       <option>House</option>
@@ -146,17 +153,17 @@ export default function AdminPropertiesPage() {
                     <Label htmlFor="location">Location / Area</Label>
                     <Input 
                       id="location" 
-                      placeholder="e.g. City Center" 
+                      placeholder="e.g. Alipiri" 
                       value={formData.location}
                       onChange={e => setFormData({...formData, location: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price ($)</Label>
+                    <Label htmlFor="price">Price (₹)</Label>
                     <Input 
                       id="price" 
                       type="number" 
-                      placeholder="0.00" 
+                      placeholder="Price in Rupees" 
                       value={formData.price}
                       onChange={e => setFormData({...formData, price: e.target.value})}
                     />
@@ -222,7 +229,7 @@ export default function AdminPropertiesPage() {
                   <TableCell className="font-bold">{prop.title}</TableCell>
                   <TableCell>{prop.type}</TableCell>
                   <TableCell>{prop.location}</TableCell>
-                  <TableCell>${prop.price.toLocaleString()}</TableCell>
+                  <TableCell>{formatPrice(prop.price)}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       {prop.availableUnits > 0 ? (

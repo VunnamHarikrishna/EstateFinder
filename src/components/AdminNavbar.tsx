@@ -9,7 +9,8 @@ import {
   BarChart3, 
   MessageSquare, 
   LogOut,
-  ShieldCheck
+  ShieldCheck,
+  ExternalLink
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -51,13 +52,21 @@ export default function AdminNavbar() {
         ))}
       </div>
 
-      <div className="p-4 border-t">
-        <div className="p-4 bg-muted/50 rounded-xl mb-4">
+      <div className="p-4 border-t space-y-3">
+        <Link href="/" target="_blank">
+          <Button variant="outline" className="w-full gap-2 border-primary text-primary hover:bg-primary/5 transition-colors">
+            <ExternalLink className="w-4 h-4" />
+            View Public Site
+          </Button>
+        </Link>
+        
+        <div className="p-4 bg-muted/50 rounded-xl">
           <p className="text-xs font-bold text-muted-foreground uppercase mb-1">Signed in as</p>
           <p className="text-sm font-bold">Administrator</p>
         </div>
+        
         <Link href="/">
-          <Button variant="outline" className="w-full gap-2 border-red-200 text-red-500 hover:bg-red-50 hover:text-red-600 border-none bg-transparent">
+          <Button variant="ghost" className="w-full gap-2 text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors">
             <LogOut className="w-4 h-4" />
             Logout
           </Button>
