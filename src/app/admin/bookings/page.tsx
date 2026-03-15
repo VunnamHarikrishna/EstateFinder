@@ -56,7 +56,7 @@ import {
   SelectItem, 
   SelectTrigger, 
   SelectValue 
-} from "@/select";
+} from "@/components/ui/select";
 import { cn } from '@/lib/utils';
 
 export default function AdminBookingsPage() {
