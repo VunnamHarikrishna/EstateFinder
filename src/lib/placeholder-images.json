@@ -3,55 +3,55 @@
     {
       "id": "banner-1",
       "description": "Luxury Tirupati Apartment Banner",
-      "imageUrl": "https://picsum.photos/seed/tp1/1200/400",
+      "imageUrl": "/images/Banners/Banner1.png",
       "imageHint": "indian apartment"
     },
     {
       "id": "banner-2",
       "description": "Tirupati Suburban Villa Banner",
-      "imageUrl": "https://picsum.photos/seed/tp2/1200/400",
+      "imageUrl": "/images/Banners/Banner4.png",
       "imageHint": "indian house"
     },
     {
       "id": "banner-3",
       "description": "Tirupati Green Plot Banner",
-      "imageUrl": "https://picsum.photos/seed/tp3/1200/400",
+      "imageUrl": "/images/Banners/Banner5.png",
       "imageHint": "indian landscape"
     },
     {
       "id": "prop-1",
       "description": "Modern Tirupati Apartment",
-      "imageUrl": "https://picsum.photos/seed/tpi1/800/600",
+      "imageUrl": "/images/Apartments/Apartment1.png",
       "imageHint": "mumbai skyscraper"
     },
     {
       "id": "prop-2",
       "description": "Spacious Tirupati Villa",
-      "imageUrl": "https://picsum.photos/seed/tpi2/800/600",
+      "imageUrl": "/images/House/House1.png",
       "imageHint": "indian villa"
     },
     {
       "id": "prop-3",
       "description": "Greenfield Plot Tirupati",
-      "imageUrl": "https://picsum.photos/seed/tpi3/800/600",
+      "imageUrl": "/images/Plots/plot1.png",
       "imageHint": "indian farm"
     },
     {
       "id": "prop-4",
       "description": "Luxury Condo Tirupati",
-      "imageUrl": "https://picsum.photos/seed/tpi4/800/600",
+      "imageUrl": "/images/Apartments/Apartment1.png",
       "imageHint": "luxury apartment"
     },
     {
       "id": "prop-5",
       "description": "Rural Tirupati Land",
-      "imageUrl": "https://picsum.photos/seed/tpi5/800/600",
+      "imageUrl": "/images/Land/Land1.jpg",
       "imageHint": "rural india"
     },
     {
       "id": "prop-6",
       "description": "Tirupati Urban Studio",
-      "imageUrl": "https://picsum.photos/seed/tpi6/800/600",
+      "imageUrl": "/images/Apartments/Apartment1.png",
       "imageHint": "urban india"
     }
   ]
